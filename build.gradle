@@ -1,0 +1,19 @@
+apply plugin:'java'
+apply plugin:'application'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile 'com.google:bitcoinj:0.11.2'
+}
+
+run {
+   if (project.hasProperty('args')) {
+       args project.args.split('\\s+')
+   }
+}
+
+mainClassName = "com.emilburzo.brainwallet.bruteforcer.Main"
