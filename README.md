@@ -1,7 +1,7 @@
 brainwallet-bruteforcer
 =======================
 
-Proof-of-concept to demonstrate the security risk in using [brain wallets](http://brainwallet.org/) for Bitcoin wallet generation.
+Proof-of-concept to demonstrate the security risk in using [brain wallets](http://brainwallet.org/).
 
 ## How to use
 
