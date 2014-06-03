@@ -1,6 +1,8 @@
 brainwallet-bruteforcer
 =======================
 
+Proof-of-concept to demonstrate the security risk in using [brain wallets](http://brainwallet.org/) for Bitcoin wallet generation.
+
 ## How to use
 
 Make sure you have git, gradle and java already installed.
