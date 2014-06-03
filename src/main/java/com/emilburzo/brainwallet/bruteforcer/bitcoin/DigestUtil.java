@@ -1,4 +1,4 @@
-package com.emilburzo.brainwallet.bruteforcer;
+package com.emilburzo.brainwallet.bruteforcer.bitcoin;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;

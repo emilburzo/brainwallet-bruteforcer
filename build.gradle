@@ -16,4 +16,4 @@ run {
    }
 }
 
-mainClassName = "com.emilburzo.brainwallet.bruteforcer.Main"
+mainClassName = "com.emilburzo.brainwallet.bruteforcer.main.Main"

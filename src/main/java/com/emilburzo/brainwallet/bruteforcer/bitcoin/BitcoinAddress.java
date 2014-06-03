@@ -1,4 +1,4 @@
-package com.emilburzo.brainwallet.bruteforcer;
+package com.emilburzo.brainwallet.bruteforcer.bitcoin;
 
 public class BitcoinAddress implements Comparable<BitcoinAddress> {
 

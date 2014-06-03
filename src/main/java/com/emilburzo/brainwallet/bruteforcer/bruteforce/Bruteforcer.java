@@ -1,4 +1,7 @@
-package com.emilburzo.brainwallet.bruteforcer;
+package com.emilburzo.brainwallet.bruteforcer.bruteforce;
+
+import com.emilburzo.brainwallet.bruteforcer.bitcoin.DigestUtil;
+import com.emilburzo.brainwallet.bruteforcer.log.Log;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +18,7 @@ public class Bruteforcer extends Thread {
 
     @Override
     public void run() {
-        System.out.println(String.format("[*] Trying %d passwords", passwords.size()));
+        Log.logWithPrefix(String.format("Trying %d passwords", passwords.size()));
 
         int size = passwords.size();
         long start = System.currentTimeMillis();
@@ -27,7 +30,7 @@ public class Bruteforcer extends Thread {
             long elapsed = System.currentTimeMillis() - start;
 
             if (elapsed >= 1 /* minutes */ * 60 * 1000) {
-                System.out.println(String.format("Trying: '%30s'\t (%5d/min)\t (%10d of %10d)",
+                Log.logWithPrefix(String.format("Trying: '%30s'\t (%5d/min)\t (%10d of %10d)",
                         pw, counter, i, size));
                 start = System.currentTimeMillis();
                 counter = 0;
@@ -43,7 +46,7 @@ public class Bruteforcer extends Thread {
         String publicAddr = DigestUtil.getPublicAddress(input);
 
         if (balances.containsKey(publicAddr)) {
-            System.out.println(String.format("[!] FOUND: '%s'", input));
+            Log.logWithPrefix(String.format("FOUND: '%s'", input));
         }
     }
 }
