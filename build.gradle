@@ -6,7 +6,6 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
     compile 'com.google:bitcoinj:0.11.2'
 }
 

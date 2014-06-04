@@ -2,18 +2,19 @@ package com.emilburzo.brainwallet.bruteforcer.bruteforce;
 
 import com.emilburzo.brainwallet.bruteforcer.bitcoin.DigestUtil;
 import com.emilburzo.brainwallet.bruteforcer.log.Log;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class Controller {
 
-    private final Map<String, Double> balances = new HashMap<>();
+    private final Set<String> balances = new HashSet<>();
     private final List<String> passwords = new ArrayList<>();
 
     private String pathBalances;
@@ -80,22 +81,14 @@ public class Controller {
         try {
             Log.logWithPrefix("Loading balances file");
 
-            Reader in = new FileReader(pathBalances);
+            BufferedReader br = new BufferedReader(new FileReader(pathBalances));
+            String line;
 
-            Iterable<CSVRecord> parser = CSVFormat.DEFAULT.parse(in);
-
-            for (CSVRecord record : parser) {
-                String addr = record.get(0).trim();
-                String balance = record.get(1).trim();
-
-                if (addr.isEmpty()) {
-                    continue;
-                }
-
-                balances.put(addr, Double.parseDouble(balance));
+            while ((line = br.readLine()) != null) {
+                balances.add(line);
             }
 
-            Log.logWithPrefix(String.format("Found %d addresses", balances.size()));
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -109,12 +102,10 @@ public class Controller {
             String line;
 
             while ((line = br.readLine()) != null) {
-                passwords.add(line.trim());
+                passwords.add(line);
             }
 
             br.close();
-
-            Log.logWithPrefix(String.format("Found %d passwords", passwords.size()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -124,8 +115,13 @@ public class Controller {
         // TODO runtime option to HT or not
         int procs = Runtime.getRuntime().availableProcessors();
         int threads = procs > 1 ? procs / 2 : procs;
-        int chunk = passwords.size() / threads;
+        int passwordSize = passwords.size();
+        // handle very small password lists
+        int chunk = passwordSize > threads ? passwordSize / threads : passwordSize;
 
+        Log.logWithPrefix(String.format("Found %d addresses", balances.size()));
+        Log.logWithPrefix(String.format("Found %d passwords", passwords.size()));
+        Log.logWithPrefix(String.format("Chunk: %d", chunk));
         Log.logWithPrefix(String.format("Detected %d processors", procs));
         Log.logWithPrefix(String.format("Using %d threads", threads));
 

@@ -7,9 +7,8 @@ public class Main {
 
     public static void main(String[] args) {
         if (args.length != 2) {
-            Log.logWithoutPrefix("args don't look right\n");
-            Log.logWithoutPrefix("usage:");
-            Log.logWithoutPrefix("\t./brainwallet-bruteforcer <balances file> <passwords file>\n");
+            Log.logWithoutPrefix("Arguments don't look right\n");
+            Log.logWithoutPrefix("Usage: ./brainwallet-bruteforcer <balances file> <passwords file>\n");
 
             System.exit(1);
         }

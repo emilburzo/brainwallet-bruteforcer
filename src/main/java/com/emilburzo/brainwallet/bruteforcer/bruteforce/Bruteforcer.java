@@ -4,14 +4,14 @@ import com.emilburzo.brainwallet.bruteforcer.bitcoin.DigestUtil;
 import com.emilburzo.brainwallet.bruteforcer.log.Log;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class Bruteforcer extends Thread {
 
-    private Map<String, Double> balances;
+    private Set<String> balances;
     private List<String> passwords;
 
-    public Bruteforcer(Map<String, Double> balances, List<String> passwords) {
+    public Bruteforcer(Set<String> balances, List<String> passwords) {
         this.balances = balances;
         this.passwords = passwords;
     }
@@ -45,7 +45,7 @@ public class Bruteforcer extends Thread {
     private void isValid(String input) {
         String publicAddr = DigestUtil.getPublicAddress(input);
 
-        if (balances.containsKey(publicAddr)) {
+        if (balances.contains(publicAddr)) {
             Log.logWithPrefix(String.format("FOUND: '%s'", input));
         }
     }
