@@ -5,10 +5,7 @@ import com.emilburzo.brainwallet.bruteforcer.log.Log;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +23,8 @@ public class Controller {
         this.pathBalances = pathBalances;
         this.pathPasswords = pathPasswords;
 
-        Log.logWithPrefix("balances: " + pathBalances);
-        Log.logWithPrefix("passwords: " + pathPasswords);
+        // do the files actually exist?
+        checkPaths();
 
         // self test
         doSelfTest();
@@ -37,6 +34,30 @@ public class Controller {
 
         // parse password file
         parsePasswords();
+    }
+
+    private void checkPaths() {
+        Log.logWithPrefix("balances: " + pathBalances);
+        Log.logWithPrefix("passwords: " + pathPasswords);
+
+        checkPath(pathBalances);
+        checkPath(pathPasswords);
+    }
+
+    private void checkPath(String path) {
+        File file = new File(path);
+
+        if (!file.exists()) {
+            throw new RuntimeException(String.format("Path '%s' doesn't exist", path));
+        }
+
+        if (file.isDirectory()) {
+            throw new RuntimeException(String.format("Path '%s' is a directory", path));
+        }
+
+        if (!file.canRead()) {
+            throw new RuntimeException(String.format("Can't read '%s'. Do I have permission?", path));
+        }
     }
 
     private void doSelfTest() {
