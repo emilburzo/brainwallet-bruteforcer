@@ -16,7 +16,7 @@ Fire up your favourite terminal and:
 ```shell
 $ git clone https://github.com/emilburzo/brainwallet-bruteforcer.git
 $ cd brainwallet-bruteforcer
-$ gradle installApp
+$ gradle installDist
 $ cd build/install/brainwallet-bruteforcer/bin
 $ ./brainwallet-bruteforcer <balances file> <passwords file>
 ```
